@@ -213,11 +213,11 @@ def get_gpu_info(**kwargs):
         import pynvml
 
         pynvml.nvmlInit()
-        source_db_gpu_driver_ver = pynvml.nvmlSystemGetDriverVersion().decode()
+        source_db_gpu_driver_ver = pynvml.nvmlSystemGetDriverVersion()
         for i in range(source_db_gpu_count):
             handle = pynvml.nvmlDeviceGetHandleByIndex(i)
             # Assume all cards are the same, overwrite name value
-            source_db_gpu_name = pynvml.nvmlDeviceGetName(handle).decode()
+            source_db_gpu_name = pynvml.nvmlDeviceGetName(handle)
         pynvml.nvmlShutdown()
     # If gpu_count argument passed in, override gathered value
     if kwargs["gpu_count"]:

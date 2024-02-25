@@ -403,7 +403,8 @@ if import_query_template_file:
         logging.exception("Could not find import_query_template_file.")
         exit(1)
 else:
-    import_query = "COPY %s FROM '%s';" % (import_table_name, import_file)
+    # import_query = "COPY %s FROM '%s';" % (import_table_name, import_file)
+    import_query = "COPY %s FROM '%s' WITH (delimiter = '|');" % (import_table_name, import_file)
 logging.debug("Import query: " + import_query)
 logging.info("Starting import...")
 start_time = timeit.default_timer()
