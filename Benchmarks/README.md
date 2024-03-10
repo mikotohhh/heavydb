@@ -3,9 +3,10 @@ Insert tphc tables into heavyDB
 ```
 ./tpch_insert.sh
 ```
-Run the queries 1-22.sql
+Run the queries 1-22.sql and save the output
 ```
-./tpch_run.sh 
+./tpch_run.sh > ${HOME}/crystal_bench/output/heavyDB.out 2>&1 & 
+tail -f ${HOME}/crystal_bench/output/heavyDB.out
 ```
 
 # MapD Benchmark Script
