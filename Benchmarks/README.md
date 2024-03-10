@@ -1,3 +1,13 @@
+# TPCH Benchmark
+Insert tphc tables into heavyDB
+```
+./tpch_insert.sh
+```
+Run the queries 1-22.sql
+```
+./tpch_run.sh 
+```
+
 # MapD Benchmark Script
 
 Python scripts that leverages [pymapd](https://github.com/omnisci/pymapd) to query a mapd database and reports performance of queries or data import.
