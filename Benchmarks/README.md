@@ -3,6 +3,11 @@ Insert tphc tables into heavyDB
 ```
 ./tpch_insert.sh
 ```
+Change heavy.conf to disable the watchdog to run q21 & q22.sql
+```
+sudo cp $HEAVYAI_BASE/heavy.conf $HEAVYAI_BASE/heavy.conf.bak # create a backup
+echo -e "enable-watchdog = false\n$(sudo cat $HEAVYAI_BASE/heavy.conf)" | sudo tee temp.conf && sudo mv temp.conf $HEAVYAI_BASE/heavy.conf
+```
 Run the queries 1-22.sql and save the output
 ```
 ./tpch_run.sh > ${HOME}/crystal_bench/output/heavyDB.out 2>&1 & 
