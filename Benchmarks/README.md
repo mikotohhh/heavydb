@@ -40,10 +40,9 @@ cd heavydb/Benchmarks/
 ```
 
 
-Run the queries 1-22.sql and save the output
+Run the queries 1-22.sql, the output will be saved into /working_dir/output/heavydb.json
 ```
-./tpch_run.sh > ${HOME}/crystal_bench/output/heavyDB.out 2>&1 & 
-tail -f ${HOME}/crystal_bench/output/heavyDB.out
+./tpch_run.sh 
 ```
 
 # MapD Benchmark Script
