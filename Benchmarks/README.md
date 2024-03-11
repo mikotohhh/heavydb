@@ -1,8 +1,39 @@
-# Build HeavyDB images
+# Use HOST HeavyDB (Recommended)
+
+create ddl schema in database
+```
+/opt/heavyai/bin/heavysql -p HyperInteractive
+```
+The open anthoer terminal on the host, copy and paste the content of tpch_ddl/all.ddl
+
+Config heavy.conf to add the following lines
+```
+allowed-import-paths=["/"]
+allowed-export-paths=["/"]
+enable-watchdog = false
+```
+Insert tphc tables into heavyDB
+```
+cd heavydb/Benchmarks/
+./tpch_insert.sh
+
+Drop cache if necessary
+```
+echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+```
+
+```
+Run the queries 1-22.sql, the output will be saved into /working_dir/output/heavydb.json
+```
+./tpch_run.sh 
+
+# If Use HeavyDB container (Unrecommended)
+
+Build HeavyDB images
 ```
 docker build -t heavy/benchmark .
 ```
-# Use HeavyDB container
+run container
 ```
 docker run --name heavyDB -d --gpus=all \
 -v /var/lib/heavyai:/var/lib/heavyai \
@@ -19,9 +50,9 @@ create ddl schema in database
 ```
 /opt/heavyai/bin/heavysql -p HyperInteractive
 ```
-The open anthoer terminal on the host, copy the 
+The open anthoer terminal on the host, copy and paste the content of tpch_ddl/all.ddl
 
-Config heavy.conf to disable the watchdog to run q21 & q22.sql
+Config heavy.conf 
 ```
 cp $HEAVYAI_BASE/heavy.conf $HEAVYAI_BASE/heavy.conf.bak # create a backup
 
@@ -42,7 +73,7 @@ cd heavydb/Benchmarks/
 
 Run the queries 1-22.sql, the output will be saved into /working_dir/output/heavydb.json
 ```
-./tpch_run.sh 
+./tpch_run_docker.sh 
 ```
 
 # MapD Benchmark Script
