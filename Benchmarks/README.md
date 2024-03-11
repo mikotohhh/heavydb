@@ -1,13 +1,45 @@
-# TPCH Benchmark
+# Build HeavyDB images
+```
+docker build -t heavy/benchmark .
+```
+# Use HeavyDB container
+```
+docker run --name heavyDB -d --gpus=all \
+-v /var/lib/heavyai:/var/lib/heavyai \
+-v ${HOME}/crystal_bench:/working_dir \
+-p 6273-6278:6273-6278 \
+heavy/benchmark
+```
+
+cd working_dir of container
+```
+docker exec -it heavyDB bash -c "cd /working_dir && exec bash"
+```
+create ddl schema in database
+```
+/opt/heavyai/bin/heavysql -p HyperInteractive
+```
+The open anthoer terminal on the host, copy the 
+
+Config heavy.conf to disable the watchdog to run q21 & q22.sql
+```
+cp $HEAVYAI_BASE/heavy.conf $HEAVYAI_BASE/heavy.conf.bak # create a backup
+
+echo "allowed-import-paths=["/"]\n" >> $HEAVYAI_BASE/heavy.conf # For Insert tables
+echo "allowed-export-paths=["/"]\n" >> $HEAVYAI_BASE/heavy.conf
+
+echo "enable-watchdog = false\n" >> $HEAVYAI_BASE/heavy.conf # For running q21 & q22.sql
+
+cat $HEAVYAI_BASE/heavy.conf
+```
+
 Insert tphc tables into heavyDB
 ```
+cd heavydb/Benchmarks/
 ./tpch_insert.sh
 ```
-Change heavy.conf to disable the watchdog to run q21 & q22.sql
-```
-sudo cp $HEAVYAI_BASE/heavy.conf $HEAVYAI_BASE/heavy.conf.bak # create a backup
-echo -e "enable-watchdog = false\n$(sudo cat $HEAVYAI_BASE/heavy.conf)" | sudo tee temp.conf && sudo mv temp.conf $HEAVYAI_BASE/heavy.conf
-```
+
+
 Run the queries 1-22.sql and save the output
 ```
 ./tpch_run.sh > ${HOME}/crystal_bench/output/heavyDB.out 2>&1 & 
