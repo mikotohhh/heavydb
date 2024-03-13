@@ -1,3 +1,4 @@
+import base64
 import os
 import timeit
 import logging
@@ -927,6 +928,10 @@ def json_format_handler(x):
         return x.isoformat()
     if isinstance(x, numpy.int64):
         return int(x)
+    if isinstance(x, bytes):
+        # Convert bytes object to Base64-encoded string
+        return base64.b64encode(x).decode('utf-8')
+    
     raise TypeError("Unknown type")
 
 

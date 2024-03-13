@@ -12,20 +12,25 @@ allowed-import-paths=["/"]
 allowed-export-paths=["/"]
 enable-watchdog = false
 ```
+Install necessay python modules 
+```
+pip install -r requirement.txt
+```
 Insert tphc tables into heavyDB
 ```
 cd heavydb/Benchmarks/
 ./tpch_insert.sh
+```
 
 Drop cache if necessary
 ```
 echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 ```
 
-```
 Run the queries 1-22.sql, the output will be saved into /working_dir/output/heavydb.json
 ```
 ./tpch_run.sh 
+```
 
 # If Use HeavyDB container (Unrecommended)
 

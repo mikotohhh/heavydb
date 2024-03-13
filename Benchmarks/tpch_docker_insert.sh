@@ -4,7 +4,7 @@ set -e -x
 
 TABLES=("customer" "lineitem" "nation" "orders" "part" "partsupp" "region" "supplier")
 
-DATA_DIR="$HOME/crystal_bench/data"
+DATA_DIR="/working_dir/data"
 
 DDL_DIR="tpch_ddl"
 

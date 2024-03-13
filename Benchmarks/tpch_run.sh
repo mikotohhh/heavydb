@@ -1,11 +1,16 @@
 #!/bin/bash
 
-set -e 
+# set -e 
 
 DATA_DIR="../../data"
 
-QUERY_DIR="../../queries"
+QUERY_DIR="../../heavydb_queries"
 
 python3 run_benchmark.py -u admin -p HyperInteractive -s localhost -n heavyai -d ${QUERY_DIR} \
     -e file_json -j "../../output/heavydb.out" -i 2 \
     -t customer -t lineitem -t nation -t orders  -t part -t partsupp -t region -t supplier -l happy 
+
+
+# python run_benchmark.py -u admin -p HyperInteractive -s localhost -n heavyai -d ${QUERY_DIR} \
+#     -e output -i 2 \
+#     -t customer -t lineitem -t nation -t orders  -t part -t partsupp -t region -t supplier -l happy 
